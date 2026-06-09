@@ -1,0 +1,18 @@
+paths:
+  raw_data_path: "data/raw/financial_fraud_detection_dataset.csv"
+  processed_data_path: "data/processed/cleaned_baseline_data.csv"
+
+features:
+  numerical_cols:
+    - "amount"
+    - "time_since_last_transaction"
+    - "spending_deviation_score"
+    - "velocity_score"
+    - "geo_anomaly_score"
+  categorical_cols:
+    - "transaction_type"
+    - "merchant_category"
+    - "location"
+    - "device_used"
+    - "payment_channel"
+  target_col: "is_fraud"
