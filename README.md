@@ -113,3 +113,15 @@ When working with 5M+ rows, **do not use `df.copy()`** inside individual functio
   This happens because the IDE doesn't know where the project root is. We have provided a `.env` file containing `PYTHONPATH=.`. Simply reload your VSCode window (`Ctrl+Shift+P` -> `Developer: Reload Window`), and Pylance will read it correctly.
 - **Pipeline fails with Memory Error:** 
   Ensure you are not running other heavy applications. If scaling to larger datasets, consider transitioning the `pandas` logic to `polars` or `PySpark` in future iterations.
+
+---
+
+## 🌍 Version Control & Git Workflow
+
+The central repository is hosted at: **[AIVIETNAM-AIO-QP09/FFD_system](https://github.com/AIVIETNAM-AIO-QP09/FFD_system)**
+
+To ensure a smooth collaboration process, please follow these Git practices:
+1. **Always pull before coding:** `git pull origin main`
+2. **Never push directly to main:** Create a new branch for your feature (`git checkout -b feature/your-feature-name`).
+3. **Commit often with descriptive messages:** Ensure your code passes `make format` and `make test` before committing.
+4. **Push and Create a Pull Request:** `git push origin feature/your-feature-name` and request a review from a team member.
