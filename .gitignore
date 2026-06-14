@@ -24,3 +24,11 @@ venv.bak/
 
 # VSCode
 .vscode/
+
+.venv/
+data/
+models/
+experiments/
+*.csv
+*.pkl
+*.zip
