@@ -1,0 +1,15 @@
+[theme]
+# Màu nền chính của ứng dụng 
+backgroundColor = "#c0d0e6"
+
+# Màu nền của thanh Sidebar bên trái 
+sidebarBackgroundColor = "#ffffff"
+
+# Màu chữ chính trong ứng dụng 
+textColor = "#1e293b"
+
+# Màu sắc chủ đạo cho các nút bấm, thanh trượt slider, widget hoạt động
+primaryColor = "#2563eb"
+
+# Màu nền của các ô nhập liệu (Input box, Selectbox)
+secondaryBackgroundColor = "#e6effa" 
