@@ -24,3 +24,9 @@ venv.bak/
 
 # VSCode
 .vscode/
+
+# OS & Logs
+.DS_Store
+Thumbs.db
+*.log
+.ipynb_checkpoints/
