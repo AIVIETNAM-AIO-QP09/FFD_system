@@ -20,18 +20,26 @@ Our structure strictly adheres to the **Cookiecutter Data Science** enterprise s
 ```text
 FFD_system/
 ├── configs/             # YAML configurations (No hardcoded variables in code!)
-├── data/                # Data storage (git-ignored to prevent pushing massive datasets)
-│   ├── raw/             # Raw source datasets (.csv)
-│   └── processed/       # Cleaned, feature-engineered artifacts ready for ML
-├── docs/                # Extended project documentation and data dictionaries
-├── models/              # Serialized ML models & preprocessors (e.g., .pkl) [Future]
+├── data/                # Data storage & demo transaction subset artifacts
+├── docs/                # Extended project documentation and team onboarding guides
+├── models/              # Serialized LightGBM models, preprocessors & RAG retrievers
 ├── notebooks/           # Jupyter notebooks for EDA and prototyping
-├── src/                 # Core Python modules
+├── reports/             # Archived benchmark analysis and model audit reports
+├── scripts/             # Categorized execution runners
+│   ├── audits/          # Failure analysis, sanity check & metric audits
+│   ├── eda/             # Exploratory analysis & feature discovery scripts
+│   └── modeling/        # Baseline training, model comparison & tuning runners
+├── src/                 # Core reusable Python library modules
 │   ├── logger.py        # Centralized logging configuration
 │   ├── data_loader.py   # Secure data ingestion and YAML parsing
-│   └── preprocessing.py # In-place memory-optimized cleaning functions
-├── tests/               # Pytest unit tests verifying data logic
+│   ├── preprocessing.py # In-place memory-optimized cleaning functions
+│   ├── inference.py     # Batch and real-time prediction pipelines
+│   ├── llm_client.py    # Local Qwen3 AI copilot client
+│   └── dashboard_utils.py # UI helper utilities
+├── tests/               # Pytest unit tests verifying preprocessing & copilot logic
+├── app_streamlit.py     # Interactive Fraud Analyst Streamlit UI
 ├── run_pipeline.py      # Entry point executor for the data pipeline
+├── Dockerfile & docker-compose.yml # Containerization configurations
 ├── requirements.txt     # Locked Python dependencies
 ├── Makefile             # One-click automation commands for Devs
 ├── pyproject.toml       # Black & Isort formatter configurations
