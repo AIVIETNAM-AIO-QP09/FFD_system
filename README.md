@@ -1,8 +1,11 @@
 # 🛡️ Financial Fraud Detection System - Core Pipeline
 
-![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)
+![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)
 ![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Build: Passing](https://img.shields.io/badge/build-passing-brightgreen)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-%23FE4B4B.svg?style=flat&logo=streamlit&logoColor=white)
+![LM Studio](https://img.shields.io/badge/LM%20Studio-Local%20AI-5C5CFF)
 
 Welcome to the **Financial Fraud Detection** repository. This project is designed to process massive volumes of financial transaction logs (5M+ records) to identify fraudulent patterns. 
 
@@ -39,8 +42,18 @@ FFD_system/
 
 ## 🚀 Getting Started (Onboarding)
 
-### 1. Prerequisites
-Ensure you have **Python 3.9 or higher** installed. It is highly recommended to use a Virtual Environment to avoid global package conflicts.
+### ⚡ Instant Onboarding with Docker Compose (Recommended)
+For new team members or quick demonstrations, you do **not** need to install local Python dependencies. Simply ensure Docker Desktop is running and execute:
+
+```bash
+docker-compose up -d --build
+```
+Access the **Fraud Analyst Dashboard** immediately at `http://localhost:8501`.
+
+---
+
+### 1. Manual Prerequisites
+Ensure you have **Python 3.12 or higher** installed. It is highly recommended to use a Virtual Environment to avoid global package conflicts.
 
 ```bash
 # Create and activate a virtual environment
@@ -125,3 +138,25 @@ To ensure a smooth collaboration process, please follow these Git practices:
 2. **Never push directly to main:** Create a new branch for your feature (`git checkout -b feature/your-feature-name`).
 3. **Commit often with descriptive messages:** Ensure your code passes `make format` and `make test` before committing.
 4. **Push and Create a Pull Request:** `git push origin feature/your-feature-name` and request a review from a team member.
+
+---
+
+## Local LLM Co-pilot with LM Studio
+
+1. Install LM Studio.
+2. Download Qwen3 8B GGUF Q4_K_M.
+3. Load the model.
+4. Start Local Server.
+5. Confirm server is reachable at http://127.0.0.1:1234.
+6. Run:
+
+```bash
+python run_lmstudio_copilot_demo.py
+```
+
+### Limitations:
+* The underlying model is a weak fraud-ranking signal.
+* RAG retrieves similar structured transactions, not legal proof.
+* The LLM improves report generation and explainability, not classification accuracy.
+* Human review remains required.
+* Do not use this system for automatic blocking or fund freezing.
