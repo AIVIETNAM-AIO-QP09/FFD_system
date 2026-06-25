@@ -1,0 +1,6 @@
+.git
+__pycache__
+notebooks/
+data/*
+!data/demo_subset.pkl
+.env

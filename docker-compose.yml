@@ -1,0 +1,17 @@
+
+services:
+  dashboard:
+    build: .
+    container_name: fraud-analyst-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./models:/app/models
+      - ./data/demo_subset.pkl:/app/data/demo_subset.pkl
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_HEADLESS=true
+      # host.docker.internal allows the Docker container to access LM Studio running on your Windows host
+      - LM_STUDIO_URL=http://host.docker.internal:1234/v1
+    network_mode: "bridge"
+    restart: unless-stopped
