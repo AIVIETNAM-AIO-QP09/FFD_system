@@ -91,6 +91,22 @@ def get_transaction_by_id(df, transaction_id):
         return None
     return res.iloc[0]
 
+def _safe_get_val(row, col, default):
+    """Safely extract a single value from a pandas Series or dict, returning default if missing."""
+    try:
+        val = row[col]
+        if val is None:
+            return default
+        # Handle numpy/pandas NA
+        try:
+            if pd.isna(val):
+                return default
+        except Exception:
+            pass
+        return val
+    except (KeyError, IndexError, TypeError):
+        return default
+
 def score_transaction(row, preprocessor, model):
     NUM_HARD = ['amount','log_amount','spending_deviation_score','velocity_score',
                'geo_anomaly_score','hour','day_of_week','month','is_weekend','is_night',
@@ -99,13 +115,26 @@ def score_transaction(row, preprocessor, model):
                'is_new_transaction_type_for_sender','is_new_device_used_for_sender']
     CAT_COLS = ['transaction_type','merchant_category','payment_channel','device_used','location']
     
-    df_row = pd.DataFrame([row])
+    # Build a BRAND NEW plain Python dict from scratch — never mutate the original row
+    features = {}
+    for col in NUM_HARD:
+        raw = _safe_get_val(row, col, 0.0)
+        try:
+            features[col] = float(raw)
+        except (ValueError, TypeError):
+            features[col] = 0.0
+    for col in CAT_COLS:
+        raw = _safe_get_val(row, col, 'unknown')
+        features[col] = str(raw) if raw is not None else 'unknown'
+    
+    df_row = pd.DataFrame([features])
     X = df_row[NUM_HARD + CAT_COLS]
     X_trans = preprocessor.transform(X)
     
     score = float(model.predict_proba(X_trans)[0, 1])
     
-    if row['tslt_is_missing'] == 1:
+    # tslt_is_missing is optional (not present in Queue data) — safe default = 0
+    if _safe_get_val(row, 'tslt_is_missing', 0) == 1:
         score = 1e-6
         
     if score >= 0.08:
@@ -119,11 +148,13 @@ def score_transaction(row, preprocessor, model):
         
     return score, risk_band
 
+
 def build_key_risk_factors(row, score, risk_band):
     ev = []
-    if row['tslt_is_missing'] == 1:
+    row_dict = row.to_dict() if hasattr(row, 'to_dict') else dict(row)
+    if row_dict.get('tslt_is_missing', 0) == 1:
         ev.append("TSLT is missing; historically this group has near-zero fraud. This is treated as a low-risk structural bucket under the current model.")
-    if row.get('is_new_location_for_sender', 0) == 1:
+    if row_dict.get('is_new_location_for_sender', 0) == 1:
         ev.append("Sender is using a new location for the first time.")
     if row.get('is_new_device_used_for_sender', 0) == 1:
         ev.append("Sender is using a new device type for the first time.")
