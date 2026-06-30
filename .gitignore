@@ -1,9 +1,14 @@
 # Data files
 data/raw/
 data/processed/
+data/split/
 *.csv
 *.parquet
 *.json
+# Runtime DB (generated)
+data/ffd_database.sqlite
+# Retrained model (generated artifact, not source)
+models/calibrated_lgbm_v2.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
